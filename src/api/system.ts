@@ -73,14 +73,26 @@ export const updateRole = (data?: object, id: number) => {
   );
 };
 
-export const getRoleDetail = (data?: string) => {
-  return http.request<ResultRole>(
-    "get",
-    baseUrlApi(`admin/system/sysRole/get/${data}`)
+/** 获取部门管理列表 */
+export const getDeptList = (data?: object) => {
+  return http.request<ResultDept>("get", baseUrlApi("admin/system/dept/list"), { data });
+};
+
+export const addDept = (data?: object) => {
+  return http.request<ResultDept>("post", baseUrlApi("admin/system/dept/save"), { data });
+}
+
+// @ts-ignore
+export const updateDept = (data?: object, id: number) => {
+  return http.request<Result>(
+    "put",
+    baseUrlApi(`admin/system/dept/update/${id}`),
+    {
+      data
+    }
   );
 };
 
-/** 获取部门管理列表 */
-export const getDeptList = (data?: object) => {
-  return http.request<ResultDept>("post", "/dept", { data });
-};
+export const deleteDept = (data?: object) => {
+  return http.request<ResultDept>("delete", baseUrlApi(`admin/system/dept/delete/${data}`));
+}

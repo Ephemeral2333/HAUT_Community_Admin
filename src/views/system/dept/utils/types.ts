@@ -3,8 +3,6 @@ interface FormItemProps {
   parentId: number;
   name: string;
   principal: string;
-  phone: string | number;
-  email: string;
   sort: number;
   status: number;
   remark: string;

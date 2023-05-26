@@ -11,8 +11,6 @@ const props = withDefaults(defineProps<FormProps>(), {
     parentId: 0,
     name: "",
     principal: "",
-    phone: "",
-    email: "",
     sort: 0,
     status: 1,
     remark: ""
@@ -76,26 +74,7 @@ defineExpose({ getRef });
           <el-input
             v-model="newFormInline.principal"
             clearable
-            placeholder="请输入部门负责人"
-          />
-        </el-form-item>
-      </re-col>
-
-      <re-col :value="12" :xs="24" :sm="24">
-        <el-form-item label="手机号" prop="phone">
-          <el-input
-            v-model="newFormInline.phone"
-            clearable
-            placeholder="请输入手机号"
-          />
-        </el-form-item>
-      </re-col>
-      <re-col :value="12" :xs="24" :sm="24">
-        <el-form-item label="邮箱" prop="email">
-          <el-input
-            v-model="newFormInline.email"
-            clearable
-            placeholder="请输入邮箱"
+            placeholder="请输入部门负责人用户名"
           />
         </el-form-item>
       </re-col>
@@ -120,16 +99,6 @@ defineExpose({ getRef });
             active-text="启用"
             inactive-text="停用"
             :style="switchStyle"
-          />
-        </el-form-item>
-      </re-col>
-
-      <re-col>
-        <el-form-item label="备注">
-          <el-input
-            v-model="newFormInline.remark"
-            placeholder="请输入备注信息"
-            type="textarea"
           />
         </el-form-item>
       </re-col>

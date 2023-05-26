@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { getDeptList } from "@/api/system";
+import { addDept, deleteDept, getDeptList, updateDept } from "@/api/system";
 import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
@@ -24,7 +24,7 @@ export function useDept() {
     {
       label: "部门名称",
       prop: "name",
-      width: 180,
+      width: 230,
       align: "left"
     },
     {
@@ -43,16 +43,16 @@ export function useDept() {
       )
     },
     {
+      label: "负责人",
+      prop: "principal",
+      minWidth: 100
+    },
+    {
       label: "创建时间",
       minWidth: 200,
       prop: "createTime",
       formatter: ({ createTime }) =>
         dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
-      label: "备注",
-      prop: "remark",
-      minWidth: 320
     },
     {
       label: "操作",
@@ -102,7 +102,7 @@ export function useDept() {
     return newTreeList;
   }
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  function openDialog(title = "新增", row?: FormItemProps, id?: number) {
     addDialog({
       title: `${title}部门`,
       props: {
@@ -111,16 +111,12 @@ export function useDept() {
           parentId: row?.parentId ?? 0,
           name: row?.name ?? "",
           principal: row?.principal ?? "",
-          phone: row?.phone ?? "",
-          email: row?.email ?? "",
           sort: row?.sort ?? 0,
-          status: row?.status ?? 1,
-          remark: row?.remark ?? ""
+          status: row?.status ?? 1
         }
       },
       width: "40%",
       draggable: true,
-      fullscreenIcon: true,
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef }),
       beforeSure: (done, { options }) => {
@@ -133,16 +129,18 @@ export function useDept() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        FormRef.validate(valid => {
+        FormRef.validate(async valid => {
           if (valid) {
-            console.log("curData", curData);
-            // 表单规则校验通过
             if (title === "新增") {
-              // 实际开发先调用新增接口，再进行下面操作
-              chores();
+              const { code } = await addDept(curData);
+              if (code === 200) {
+                chores();
+              }
             } else {
-              // 实际开发先调用编辑接口，再进行下面操作
-              chores();
+              const { code } = await updateDept(curData, id);
+              if (code === 200) {
+                chores();
+              }
             }
           }
         });
@@ -150,7 +148,8 @@ export function useDept() {
     });
   }
 
-  function handleDelete(row) {
+  async function handleDelete(row) {
+    const { code } = await deleteDept(row.id);
     message(`您删除了部门名称为${row.name}的这条数据`, { type: "success" });
     onSearch();
   }

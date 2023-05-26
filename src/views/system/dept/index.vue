@@ -112,7 +112,7 @@ const {
               type="primary"
               :size="size"
               :icon="useRenderIcon(EditPen)"
-              @click="openDialog('编辑', row)"
+              @click="openDialog('编辑', row, row.id)"
             >
               编辑
             </el-button>
