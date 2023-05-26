@@ -13,6 +13,7 @@ import { stringify } from "qs";
 import NProgress from "../progress";
 import { getToken, formatToken } from "@/utils/auth";
 import { useUserStoreHook } from "@/store/modules/user";
+import { ElMessage } from "element-plus";
 
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
 const defaultConfig: AxiosRequestConfig = {
@@ -132,7 +133,18 @@ class PureHttp {
           PureHttp.initConfig.beforeResponseCallback(response);
           return response.data;
         }
-        return response.data;
+        // return response.data;
+        const dataAxios = response.data;
+        const { code, message } = dataAxios;
+
+        if (code !== 200) {
+          ElMessage({
+            message: message || "Error",
+            type: "error",
+            duration: 5 * 1000
+          });
+        }
+        return dataAxios;
       },
       (error: PureHttpError) => {
         const $error = error;

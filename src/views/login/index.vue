@@ -6,8 +6,7 @@ import { loginRules } from "./utils/rule";
 import { useNav } from "@/layout/hooks/useNav";
 import type { FormInstance } from "element-plus";
 import { useLayout } from "@/layout/hooks/useLayout";
-import { useUserStoreHook } from "@/store/modules/user";
-import { initRouter, getTopMenu } from "@/router/utils";
+import { getTopMenu, initRouter } from "@/router/utils";
 import { bg, avatar, illustration } from "./utils/static";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from "vue";
@@ -17,6 +16,7 @@ import dayIcon from "@/assets/svg/day.svg?component";
 import darkIcon from "@/assets/svg/dark.svg?component";
 import Lock from "@iconify-icons/ri/lock-fill";
 import User from "@iconify-icons/ri/user-3-fill";
+import { useUserStoreHook } from "@/store/modules/user";
 
 defineOptions({
   name: "Login"
@@ -34,7 +34,7 @@ const { title } = useNav();
 
 const ruleForm = reactive({
   username: "admin",
-  password: "admin123"
+  password: "111111"
 });
 
 const onLogin = async (formEl: FormInstance | undefined) => {
@@ -43,16 +43,42 @@ const onLogin = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       useUserStoreHook()
-        .loginByUsername({ username: ruleForm.username, password: "admin123" })
+        .loginByUsername({
+          username: ruleForm.username,
+          password: ruleForm.password
+        })
         .then(res => {
-          if (res.success) {
-            // 获取后端路由
+          if (res.code === 200) {
+            //获取后端路由
             initRouter().then(() => {
               router.push(getTopMenu(true).path);
               message("登录成功", { type: "success" });
             });
+          } else {
+            loading.value = false;
           }
         });
+      // usePermissionStoreHook().handleWholeMenus([]);
+      // addPathMatch();
+      // getLogin({
+      //   username: ruleForm.username,
+      //   password: ruleForm.password
+      // }).then(res => {
+      //   if (res.code === 200) {
+      //     setToken({
+      //       username: res.data.username,
+      //       accessToken: res.data.accessToken,
+      //       // roles: res.data.roles,
+      //       roles: ["admin"],
+      //       expires: res.data.expires,
+      //       refreshToken: res.data.refreshToken
+      //     } as any);
+      //     router.push("/");
+      //     message("登录成功", { type: "success" });
+      //   } else {
+      //     loading.value = false;
+      //   }
+      // });
     } else {
       loading.value = false;
       return fields;

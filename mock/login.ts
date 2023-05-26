@@ -8,7 +8,8 @@ export default [
     response: ({ body }) => {
       if (body.username === "admin") {
         return {
-          success: true,
+          code: 200,
+          message: "success",
           data: {
             username: "admin",
             // 一个用户可能有多个角色
@@ -20,7 +21,8 @@ export default [
         };
       } else {
         return {
-          success: true,
+          code: 401,
+          message: "用户名或密码错误",
           data: {
             username: "common",
             // 一个用户可能有多个角色
