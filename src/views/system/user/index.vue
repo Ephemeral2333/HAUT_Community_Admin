@@ -29,9 +29,10 @@ const {
   resetForm,
   handleUpdate,
   handleDelete,
-  handleSizeChange,
-  handleCurrentChange,
-  handleSelectionChange
+  handleChange,
+  handleSelectionChange,
+  openDialog,
+  resetPassword
 } = useUser();
 </script>
 
@@ -53,10 +54,10 @@ const {
             class="!w-[160px]"
           />
         </el-form-item>
-        <el-form-item label="手机号码：" prop="mobile">
+        <el-form-item label="邮箱：" prop="email">
           <el-input
-            v-model="form.mobile"
-            placeholder="请输入手机号码"
+            v-model="form.email"
+            placeholder="请输入邮箱"
             clearable
             class="!w-[160px]"
           />
@@ -85,11 +86,31 @@ const {
             重置
           </el-button>
         </el-form-item>
+        <el-form-item label="用户昵称：" prop="nickname">
+          <el-input
+            v-model="form.nickname"
+            placeholder="请输入用户昵称"
+            clearable
+            class="!w-[160px]"
+          />
+        </el-form-item>
+        <el-form-item label="部门名称：" prop="dept">
+          <el-input
+            v-model="form.dept"
+            placeholder="请输入所属部门名称"
+            clearable
+            class="!w-[160px]"
+          />
+        </el-form-item>
       </el-form>
 
       <PureTableBar title="用户管理" :columns="columns" @refresh="onSearch">
         <template #buttons>
-          <el-button type="primary" :icon="useRenderIcon(AddFill)">
+          <el-button
+            type="primary"
+            :icon="useRenderIcon(AddFill)"
+            @click="openDialog()"
+          >
             新增用户
           </el-button>
         </template>
@@ -109,8 +130,8 @@ const {
               color: 'var(--el-text-color-primary)'
             }"
             @selection-change="handleSelectionChange"
-            @page-size-change="handleSizeChange"
-            @page-current-change="handleCurrentChange"
+            @page-size-change="handleChange"
+            @page-current-change="handleChange"
           >
             <template #operation="{ row }">
               <el-button
@@ -118,12 +139,13 @@ const {
                 link
                 type="primary"
                 :size="size"
-                @click="handleUpdate(row)"
+                @click="openDialog('编辑', row, row.id)"
                 :icon="useRenderIcon(EditPen)"
               >
                 修改
               </el-button>
-              <el-popconfirm title="是否确认删除?">
+              <el-popconfirm :title="`是否确认删除用户名为${row.username}的这条数据`"
+                             @confirm="handleDelete(row)">
                 <template #reference>
                   <el-button
                     class="reset-margin"
@@ -131,7 +153,6 @@ const {
                     type="primary"
                     :size="size"
                     :icon="useRenderIcon(Delete)"
-                    @click="handleDelete(row)"
                   >
                     删除
                   </el-button>
@@ -155,6 +176,7 @@ const {
                         type="primary"
                         :size="size"
                         :icon="useRenderIcon(Password)"
+                        @click="resetPassword(row)"
                       >
                         重置密码
                       </el-button>
@@ -166,6 +188,7 @@ const {
                         type="primary"
                         :size="size"
                         :icon="useRenderIcon(Role)"
+                        @click="assignRole(row)"
                       >
                         分配角色
                       </el-button>

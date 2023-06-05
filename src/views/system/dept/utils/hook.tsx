@@ -150,8 +150,10 @@ export function useDept() {
 
   async function handleDelete(row) {
     const { code } = await deleteDept(row.id);
-    message(`您删除了部门名称为${row.name}的这条数据`, { type: "success" });
-    onSearch();
+    if (code === 200) {
+      message(`您删除了部门名称为${row.name}的这条数据`, { type: "success" });
+      onSearch();
+    }
   }
 
   onMounted(() => {

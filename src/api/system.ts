@@ -34,8 +34,34 @@ type ResultDept = {
 
 /** 获取用户管理列表 */
 export const getUserList = (data?: object) => {
-  return http.request<Result>("post", "/user", { data });
+  return http.request<Result>("post", baseUrlApi("admin/system/sysUser/getPageList"), { data });
 };
+
+/** 保存用户 */
+export const saveUser = (data?: object) => {
+  return http.request<Result>("post", baseUrlApi("admin/system/sysUser/save"), { data });
+}
+
+/** 更新用户 */
+// @ts-ignore
+export const updateUser = (data?: object, id: number) => {
+  return http.request<Result>("put", baseUrlApi(`admin/system/sysUser/update/${id}`), { data });
+}
+
+/** 更新用户状态 */
+export const updateUserStatus = (id:number, status:number) => {
+  return http.request<Result>("put", baseUrlApi(`admin/system/sysUser/updateStatus/${id}/${status}`));
+}
+
+/** 删除用户 */
+export const deleteUser = (data?: object) => {
+  return http.request<Result>("delete", baseUrlApi(`admin/system/sysUser/remove/${data}`));
+}
+
+/** 重置密码 */
+export const resetUserPassword = (data?: object) => {
+  return http.request<Result>("put", baseUrlApi(`admin/system/sysUser/resetPassword/${data}`));
+}
 
 /** 获取角色管理列表 */
 export const getRoleList = (data?: object) => {
@@ -47,6 +73,13 @@ export const getRoleList = (data?: object) => {
     }
   );
 };
+
+/** 获取所有角色列表 */
+export const getAllRoleList = () => {
+  const result = http.request<Result>("get", baseUrlApi("admin/system/sysRole/findAll"));
+  // 获取result中的data
+  return result.then(res => res.data);
+}
 
 /** 删除角色 */
 export const deleteRole = (data?: object) => {

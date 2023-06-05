@@ -2,7 +2,8 @@
 export default {
   path: "/fighting",
   meta: {
-    title: "加油"
+    title: "加油",
+    showLink: false
   },
   children: [
     {

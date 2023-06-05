@@ -58,27 +58,6 @@ const onLogin = async (formEl: FormInstance | undefined) => {
             loading.value = false;
           }
         });
-      // usePermissionStoreHook().handleWholeMenus([]);
-      // addPathMatch();
-      // getLogin({
-      //   username: ruleForm.username,
-      //   password: ruleForm.password
-      // }).then(res => {
-      //   if (res.code === 200) {
-      //     setToken({
-      //       username: res.data.username,
-      //       accessToken: res.data.accessToken,
-      //       // roles: res.data.roles,
-      //       roles: ["admin"],
-      //       expires: res.data.expires,
-      //       refreshToken: res.data.refreshToken
-      //     } as any);
-      //     router.push("/");
-      //     message("登录成功", { type: "success" });
-      //   } else {
-      //     loading.value = false;
-      //   }
-      // });
     } else {
       loading.value = false;
       return fields;

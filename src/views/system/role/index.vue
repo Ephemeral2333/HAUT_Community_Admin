@@ -84,7 +84,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="角色列表（仅演示，操作后不生效）"
+      title="角色列表"
       :columns="columns"
       @refresh="onSearch"
     >

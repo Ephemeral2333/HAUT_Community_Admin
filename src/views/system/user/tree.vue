@@ -2,7 +2,7 @@
 import { handleTree } from "@/utils/tree";
 import { getDeptList } from "@/api/system";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
-import { ref, computed, watch, onMounted, getCurrentInstance } from "vue";
+import { computed, getCurrentInstance, onMounted, ref, watch } from "vue";
 
 import Dept from "@iconify-icons/ri/git-branch-line";
 import Reset from "@iconify-icons/ri/restart-line";
@@ -12,6 +12,7 @@ import OfficeBuilding from "@iconify-icons/ep/office-building";
 import LocationCompany from "@iconify-icons/ep/add-location";
 import ExpandIcon from "./svg/expand.svg?component";
 import UnExpandIcon from "./svg/unexpand.svg?component";
+import { useUser } from "@/views/system/user/hook";
 
 interface Tree {
   id: number;
@@ -40,20 +41,28 @@ const buttonClass = computed(() => {
   ];
 });
 
+const {
+  dataList,
+  form,
+  onSearch
+} = useUser();
+
 const filterNode = (value: string, data: Tree) => {
   if (!value) return true;
   return data.name.includes(value);
 };
 
-function nodeClick(value) {
+async function nodeClick(value) {
   const nodeId = value.$treeNodeId;
+  // 将ID值传给index.vue中的form.deptId
+  await onSearch();
   highlightMap.value[nodeId] = highlightMap.value[nodeId]?.highlight
     ? Object.assign({ id: nodeId }, highlightMap.value[nodeId], {
-        highlight: false
-      })
+      highlight: false
+    })
     : Object.assign({ id: nodeId }, highlightMap.value[nodeId], {
-        highlight: true
-      });
+      highlight: true
+    });
   Object.values(highlightMap.value).forEach((v: Tree) => {
     if (v.id !== nodeId) {
       v.highlight = false;
