@@ -19,3 +19,16 @@ type Result = {
 export const getBillBoardList = (data?: object) => {
   return http.request<Result>("post", baseUrlApi("admin/billboard/getPageList"), { data });
 };
+
+export const saveBillBoard = (data?: object) => {
+  return http.request<Result>("post", baseUrlApi("admin/billboard/save"), { data });
+}
+
+// @ts-ignore
+export const updateBillBoard = (data?: object, id: number) => {
+  return http.request<Result>("put", baseUrlApi(`admin/billboard/update/${id}`), { data });
+}
+
+export const deleteBillBoard = (id: number) => {
+  return http.request<Result>("delete", baseUrlApi(`admin/billboard/delete/${id}`));
+}
