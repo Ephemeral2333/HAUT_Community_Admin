@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import { useTag } from "@/views/tag/all-tag/util/hook";
 import { ref } from "vue";
-import { useMyPost } from "@/views/post/view/utils/hook";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import Search from "@iconify-icons/ep/search";
 import Refresh from "@iconify-icons/ep/refresh";
 import PureTableBar from "@/components/RePureTableBar/src/bar";
+import AddFill from "@iconify-icons/ri/add-circle-line";
+import EditPen from "@iconify-icons/ep/edit-pen";
 import Delete from "@iconify-icons/ep/delete";
-import Document from "@iconify-icons/ep/document";
 
 defineOptions({
-  name: "ViewPost"
+  name: "AllTags"
 });
 
 const formRef = ref();
@@ -23,8 +24,10 @@ const {
   columns,
   onSearch,
   resetForm,
+  openDialog,
   handleDelete
-} = useMyPost();
+} = useTag();
+
 </script>
 
 <template>
@@ -35,10 +38,10 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="帖子标题：" prop="content">
+      <el-form-item label="标签：" prop="content">
         <el-input
-          v-model="form.title"
-          placeholder="请输入帖子内容"
+          v-model="form.content"
+          placeholder="请输入标签标题"
           clearable
           class="!w-[200px]"
         />
@@ -59,9 +62,18 @@ const {
     </el-form>
 
     <PureTableBar
-      title="我的帖子"
+      title="标签列表"
       :columns="columns"
       @refresh="onSearch">
+      <template #buttons>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(AddFill)"
+          @click="openDialog()"
+        >
+          新增标签
+        </el-button>
+      </template>
 
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
@@ -88,21 +100,13 @@ const {
               link
               type="primary"
               :size="size"
-              :icon="useRenderIcon(Document)"
+              :icon="useRenderIcon(EditPen)"
+              @click="openDialog('编辑', row, row.id)"
             >
-              <router-link
-                :to="{
-                  name: 'PostDetail',
-                  params: {
-                    id: row.id
-                  }
-                }"
-              >
-                查看
-              </router-link>
+              修改
             </el-button>
             <el-popconfirm
-              :title="`是否确认删除帖子标题为${row.title}的这条数据`"
+              :title="`是否确认删除标签内容为'${row.name}'的这条数据`"
               @confirm="handleDelete(row.id)"
             >
               <template #reference>

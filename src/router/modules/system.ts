@@ -1,6 +1,7 @@
 // 最简代码，也就是这些字段必须有
 export default {
   path: "/system",
+  redirect: "/system/user/index",
   meta: {
     icon: "fluent:settings-cog-multiple-20-filled",
     title: "系统管理"
@@ -13,7 +14,7 @@ export default {
       meta: {
         icon: "fluent:people-32-regular",
         title: "用户管理",
-        roles: ["admin"]
+        roles: ["admin", "manager"]
       }
     },
     {
@@ -23,7 +24,7 @@ export default {
       meta: {
         icon: "fluent:building-32-filled",
         title: "院系管理",
-        roles: ["admin"]
+        roles: ["admin", "manager"]
       }
     },
     {
@@ -33,7 +34,7 @@ export default {
       meta: {
         icon: "fluent:person-accounts-24-filled",
         title: "角色管理",
-        roles: ["admin"]
+        roles: ["admin", "manager"]
       }
     }
   ]

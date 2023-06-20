@@ -6,6 +6,7 @@ import Refresh from "@iconify-icons/ep/refresh";
 import PureTableBar from "@/components/RePureTableBar/src/bar";
 import Delete from "@iconify-icons/ep/delete";
 import { useAllPost } from "@/views/post/all-post/utils/hook";
+import Document from "@iconify-icons/ep/document";
 
 defineOptions({
   name: "ViewPost"
@@ -82,6 +83,25 @@ const {
           @page-current-change="onSearch"
         >
           <template #operation="{ row }">
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
+              :icon="useRenderIcon(Document)"
+            >
+              <router-link
+                :to="{
+                  name: 'PostDetail',
+                  params: {
+                    id: row.id
+                  }
+                }"
+              >
+                查看
+              </router-link>
+            </el-button>
+
             <el-popconfirm
               :title="`是否确认删除帖子标题为${row.title}的这条数据`"
               @confirm="handleDelete(row.id)"

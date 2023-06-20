@@ -1,18 +1,14 @@
-import { onMounted, reactive } from "vue";
-import { ref } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
 import { usePublicHooks } from "@/views/system/hooks";
 import { PaginationProps } from "@pureadmin/table";
-import dayjs from "dayjs";
-import { isAllEmpty } from "@pureadmin/utils";
-import { deleteBillBoard, getBillBoardList, saveBillBoard, updateBillBoard } from "@/api/billboard";
-import { FormItemProps } from "@/views/public/tip/utils/types";
-import { addDialog } from "@/components/ReDialog/index";
-import { h } from "vue";
-import editForm from "@/views/public/billboard/form.vue";
-import { message } from "@/utils/message";
+import { deleteTag, getTagList, saveTag, updateTag } from "@/api/tag";
 import { ElMessage } from "element-plus";
+import { FormItemProps } from "@/views/tag/all-tag/util/types";
+import { addDialog } from "@/components/ReDialog/index";
+import editForm from "@/views/tag/all-tag/form.vue";
+import { message } from "@/utils/message";
 
-export function useBillboard() {
+export function useTag() {
   const form = reactive({
     content: ""
   });
@@ -24,7 +20,7 @@ export function useBillboard() {
 
   const pagination = reactive<PaginationProps>({
     total: 0,
-    pageSize: 5,
+    pageSize: 10,
     currentPage: 1,
     background: true
   });
@@ -33,41 +29,29 @@ export function useBillboard() {
     {
       label: "序号",
       type: "index",
-      width: 80,
+      minWidth: 80
     },
     {
-      label: "公告内容",
-      prop: "content",
-      width: 300
+      label: "标签名称",
+      prop: "name",
+      minWidth: 300
     },
     {
-      label: "发布时间",
-      minWidth: 200,
-      prop: "createTime",
-      formatter: ({ createTime }) =>
-        dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
-      label: "修改时间",
-      minWidth: 200,
-      prop: "updateTime",
-      formatter: ({ updateTime }) =>
-        dayjs(updateTime).format("YYYY-MM-DD HH:mm:ss")
+      label: "标签统计",
+      prop: "topicCount",
+      minWidth: 300
     },
     {
       label: "操作",
       fixed: "right",
-      width: 160,
+      minWidth: 160,
       slot: "operation"
     }
   ];
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getBillBoardList(pagination);
-    if (!isAllEmpty(form.content)) {
-      data.list = data.list.filter(item => item.content.includes(form.content));
-    }
+    const { data } = await getTagList(pagination);
     dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
@@ -84,12 +68,22 @@ export function useBillboard() {
     onSearch();
   }
 
+  async function handleDelete(id) {
+    await deleteTag(id)
+    ElMessage.success("删除成功");
+    onSearch();
+  }
+
+  onMounted(() => {
+    onSearch();
+  });
+
   function openDialog(title = "新增", row?: FormItemProps, id?: number) {
     addDialog({
-      title: `${title}公告`,
+      title: `${title}标签`,
       props: {
         formInline: {
-          content: row?.content ?? ""
+          name: row?.name ?? ""
         }
       },
       width: "40%",
@@ -101,7 +95,7 @@ export function useBillboard() {
         const curData = options.props.formInline as FormItemProps;
 
         function chores() {
-          message(`您${title}了公告内容为${curData.content}的这条数据`, {
+          message(`您${title}了标签名称为${curData.name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -111,14 +105,14 @@ export function useBillboard() {
         FormRef.validate(async valid => {
           if (valid) {
             if (title === "新增") {
-              const { code } = await saveBillBoard(curData);
+              const { code } = await saveTag(curData);
               if (code === 200) {
                 chores();
               } else {
                 message("新增失败", { type: "error" });
               }
             } else {
-              const { code } = await updateBillBoard(curData, id);
+              const { code } = await updateTag(curData, id);
               if (code === 200) {
                 chores();
               } else {
@@ -131,18 +125,9 @@ export function useBillboard() {
     });
   }
 
-  async function handleDelete(id) {
-    await deleteBillBoard(id);
-    ElMessage.success("删除成功");
-    onSearch();
-  }
-
-  onMounted(() => {
-    onSearch();
-  });
-
   return {
     form,
+    formRef,
     loading,
     dataList,
     tagStyle,

@@ -1,19 +1,11 @@
 export default {
   path: "/post",
+  redirect: "/post/view",
   meta: {
     title: "帖子管理",
     icon: "typcn:document-text"
   },
   children: [
-    {
-      path: "/post/create",
-      name: "CreatePost",
-      component: () => import("@/views/post/create/index.vue"),
-      meta: {
-        title: "发布帖子",
-        icon: "ic:twotone-post-add"
-      }
-    },
     {
       path: "/post/view",
       name: "ViewPost",
@@ -30,7 +22,17 @@ export default {
       meta: {
         title: "所有帖子",
         icon: "material-symbols:local-post-office-outline",
-        roles: ["admin"]
+        roles: ["admin", "article"]
+      }
+    },
+    {
+      path: "/post/detail/:id",
+      name: "PostDetail",
+      component: () => import("@/views/post/detail/index.vue"),
+      meta: {
+        title: "帖子详情",
+        icon: "bi:file-earmark-post",
+        showLink: false
       }
     }
   ]

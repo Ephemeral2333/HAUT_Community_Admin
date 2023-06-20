@@ -32,3 +32,16 @@ export const saveTip = (data?: object) => {
 export const updateTip = (data?: object, id: number) => {
   return http.request<Result>("put", baseUrlApi(`admin/tip/update/${id}`), { data });
 }
+
+// 获取投稿列表
+export const getContributeList = (data?: object) => {
+  return http.request<Result>("post", baseUrlApi("admin/tip/post/list"), { data });
+}
+
+export const refuseTip = (id?: number) => {
+  return http.request<Result>("get", baseUrlApi(`admin/tip/refuse/${id}`));
+}
+
+export const passTip = (id?: number) => {
+  return http.request<Result>("get", baseUrlApi(`admin/tip/pass/${id}`));
+}

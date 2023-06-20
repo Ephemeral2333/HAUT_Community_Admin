@@ -9,7 +9,7 @@ import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
 
 import Table from "@pureadmin/table";
-import PureDescriptions from "@pureadmin/descriptions";
+import PureDescriptions from "@pureadmin/descriptions"
 
 // 引入重置样式
 import "./style/reset.scss";
@@ -21,9 +21,12 @@ import "element-plus/dist/index.css";
 // 导入字体图标
 import "./assets/iconfont/iconfont.js";
 import "./assets/iconfont/iconfont.css";
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 const app = createApp(App);
-
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 // 自定义指令
 import * as directives from "@/directives";
 Object.keys(directives).forEach(key => {
@@ -44,6 +47,15 @@ app.component("FontIcon", FontIcon);
 import { Auth } from "@/components/ReAuth";
 app.component("Auth", Auth);
 
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import '@kangc/v-md-editor/lib/style/preview.css';
+import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
+import '@kangc/v-md-editor/lib/theme/style/github.css';
+import hljs from 'highlight.js';
+VMdPreview.use(githubTheme, {
+  Hljs: hljs,
+});
+
 getServerConfig(app).then(async config => {
   app.use(router);
   await router.isReady();
@@ -54,6 +66,7 @@ getServerConfig(app).then(async config => {
     .use(ElementPlus)
     .use(Table)
     .use(PureDescriptions)
-    .use(useEcharts);
+    .use(useEcharts)
+    .use(VMdPreview);
   app.mount("#app");
 });

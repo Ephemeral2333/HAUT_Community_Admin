@@ -17,6 +17,7 @@ import darkIcon from "@/assets/svg/dark.svg?component";
 import Lock from "@iconify-icons/ri/lock-fill";
 import User from "@iconify-icons/ri/user-3-fill";
 import { useUserStoreHook } from "@/store/modules/user";
+import { getUserInfo } from "@/api/user";
 
 defineOptions({
   name: "Login"
@@ -50,7 +51,10 @@ const onLogin = async (formEl: FormInstance | undefined) => {
         .then(res => {
           if (res.code === 200) {
             //获取后端路由
-            initRouter().then(() => {
+            initRouter().then(async () => {
+              const { data } = await getUserInfo();
+              localStorage.setItem("avatar", data.headUrl);
+
               router.push(getTopMenu(true).path);
               message("登录成功", { type: "success" });
             });

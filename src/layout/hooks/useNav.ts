@@ -10,6 +10,7 @@ import { router, remainingPaths } from "@/router";
 import { useAppStoreHook } from "@/store/modules/app";
 import { useUserStoreHook } from "@/store/modules/user";
 import { usePermissionStoreHook } from "@/store/modules/permission";
+import { getUserInfo } from "@/api/user";
 
 const errorInfo = "当前路由配置不正确，请检查配置";
 
@@ -30,6 +31,7 @@ export function useNav() {
       overflow: "hidden"
     };
   });
+
 
   /** 用户名 */
   const username = computed(() => {

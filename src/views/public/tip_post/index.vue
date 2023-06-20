@@ -1,30 +1,33 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useMyPost } from "@/views/post/view/utils/hook";
+import { useTipPost } from "./utils/hook";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import Search from "@iconify-icons/ep/search";
 import Refresh from "@iconify-icons/ep/refresh";
+import { ref } from "vue";
 import PureTableBar from "@/components/RePureTableBar/src/bar";
+import AddFill from "@iconify-icons/ri/add-circle-line";
+import EditPen from "@iconify-icons/ep/edit-pen";
 import Delete from "@iconify-icons/ep/delete";
-import Document from "@iconify-icons/ep/document";
+import { Failed, SuccessFilled } from "@element-plus/icons-vue";
 
 defineOptions({
-  name: "ViewPost"
+  name: "TipPost"
 });
-
 const formRef = ref();
 
 const {
   form,
   loading,
-  dataList,
-  tagStyle,
-  pagination,
-  columns,
   onSearch,
   resetForm,
-  handleDelete
-} = useMyPost();
+  columns,
+  dataList,
+  pagination,
+  handleChange,
+  handlePost,
+  openDialog
+} = useTipPost();
+
 </script>
 
 <template>
@@ -35,10 +38,26 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="帖子标题：" prop="content">
+      <el-form-item label="投稿内容：" prop="content">
         <el-input
-          v-model="form.title"
-          placeholder="请输入帖子内容"
+          v-model="form.content"
+          placeholder="请输入投稿内容"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="投稿作者：" prop="author">
+        <el-input
+          v-model="form.author"
+          placeholder="请输入投稿作者"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="投稿人：" prop="user">
+        <el-input
+          v-model="form.user"
+          placeholder="请输入投稿人"
           clearable
           class="!w-[200px]"
         />
@@ -59,7 +78,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="我的帖子"
+      title="每日一句投稿审核"
       :columns="columns"
       @refresh="onSearch">
 
@@ -79,41 +98,40 @@ const {
             background: 'var(--el-table-row-hover-bg-color)',
             color: 'var(--el-text-color-primary)'
           }"
-          @page-size-change="onSearch"
-          @page-current-change="onSearch"
+          @page-size-change="handleChange"
+          @page-current-change="handleChange"
         >
           <template #operation="{ row }">
-            <el-button
-              class="reset-margin"
-              link
-              type="primary"
-              :size="size"
-              :icon="useRenderIcon(Document)"
-            >
-              <router-link
-                :to="{
-                  name: 'PostDetail',
-                  params: {
-                    id: row.id
-                  }
-                }"
-              >
-                查看
-              </router-link>
-            </el-button>
             <el-popconfirm
-              :title="`是否确认删除帖子标题为${row.title}的这条数据`"
-              @confirm="handleDelete(row.id)"
+              :title="`是否确认通过投稿人为${row.postman}的这条数据`"
+              @confirm="handlePost(row.id, 'pass')"
             >
               <template #reference>
                 <el-button
                   class="reset-margin"
                   link
-                  type="primary"
+                  type="success"
                   :size="size"
-                  :icon="useRenderIcon(Delete)"
+                  :icon="useRenderIcon(SuccessFilled)"
+                  @click=""
                 >
-                  删除
+                  接受
+                </el-button>
+              </template>
+            </el-popconfirm>
+            <el-popconfirm
+              :title="`是否确认拒绝投稿人为${row.postman}的这条数据`"
+              @confirm="handlePost(row.id, 'refuse')"
+            >
+              <template #reference>
+                <el-button
+                  class="reset-margin"
+                  link
+                  type="danger"
+                  :size="size"
+                  :icon="useRenderIcon(Failed)"
+                >
+                  拒绝
                 </el-button>
               </template>
             </el-popconfirm>

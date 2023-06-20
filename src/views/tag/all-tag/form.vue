@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { formRules } from "./utils/rule";
-import { FormProps } from "./utils/types";
+import { formRules } from "./util/rule";
+import { FormProps } from "./util/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
-    content: ""
+    name: ""
   })
 });
 
@@ -26,11 +26,11 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="公告内容" prop="content">
+    <el-form-item label="标签名称" prop="content">
       <el-input
-        v-model="newFormInline.content"
+        v-model="newFormInline.name"
         clearable
-        placeholder="请输入公告内容"
+        placeholder="请输入标签名称"
       />
     </el-form-item>
   </el-form>

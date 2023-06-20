@@ -1,5 +1,6 @@
 import { http } from "@/utils/http";
 import { baseUrlApi } from "@/api/util";
+import { RouteParamValue } from "vue-router";
 
 type Result = {
   code: number;
@@ -16,6 +17,12 @@ type Result = {
   };
 };
 
+type PostResult = {
+  code: number;
+  message: string;
+  data?: any;
+}
+
 export const getMyPost = (data?: object) => {
   return http.request<Result>("post", baseUrlApi("front/post/my"), { data });
 }
@@ -26,4 +33,8 @@ export const deletePost = (id?: number) => {
 
 export const getAllPost = (data?: object) => {
   return http.request<Result>("post", baseUrlApi("admin/post/getPageList"), { data });
+}
+
+export const getPostById = (id?: string | RouteParamValue[]) => {
+  return http.request<PostResult>("get", baseUrlApi(`front/post/${id}`));
 }

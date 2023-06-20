@@ -18,6 +18,9 @@ const {
   avatarsStyle,
   toggleSideBar
 } = useNav();
+
+const avatar = localStorage.getItem("avatar");
+
 </script>
 
 <template>
@@ -47,7 +50,7 @@ const {
       <el-dropdown trigger="click">
         <span class="el-dropdown-link navbar-bg-hover select-none">
           <img
-            src="https://avatars.githubusercontent.com/u/44761321?v=4"
+            :src="avatar"
             :style="avatarsStyle"
           />
           <p v-if="username" class="dark:text-white">{{ username }}</p>

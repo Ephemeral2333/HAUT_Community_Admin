@@ -1,5 +1,6 @@
 export default {
   path: "/public",
+  redirect: "/public/billboard",
   meta: {
     title: "公告管理",
     icon: "game-icons:bugle-call"
@@ -13,16 +14,6 @@ export default {
         title: "公告管理",
         roles: ["admin"],
         icon: "emojione-v1:loudspeaker"
-      }
-    },
-    {
-      path: "/public/tip",
-      name: "Tip",
-      component: () => import("@/views/public/tip/index.vue"),
-      meta: {
-        title: "每日一句管理",
-        roles: ["admin"],
-        icon:"material-symbols:tips-and-updates-rounded"
       }
     }
   ]

@@ -106,7 +106,6 @@ defineExpose({ getRef });
             v-model="newFormInline.roleIds"
             multiple
             placeholder="Select"
-            style="width: 240px"
           >
             <el-option
               v-for="item in newFormInline.roleList"

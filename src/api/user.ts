@@ -31,6 +31,19 @@ export type RefreshTokenResult = {
   };
 };
 
+export type UserInfoResult = {
+  code: number;
+  message: string;
+  data: {
+    /** 邮箱 */
+    email: string;
+    /** 头像 */
+    headUrl: string;
+    /** 昵称 */
+    nickname: string;
+  };
+}
+
 /** 登录 */
 export const getLogin = (data?: object) => {
   return http.request<UserResult>(
@@ -44,3 +57,7 @@ export const getLogin = (data?: object) => {
 export const refreshTokenApi = (data?: object) => {
   return http.request<RefreshTokenResult>("post", "/refreshToken", { data });
 };
+
+export const getUserInfo = (data?: object) => {
+  return http.request("get", baseUrlApi("admin/system/index/info"), { data });
+}
