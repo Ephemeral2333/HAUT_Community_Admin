@@ -49,6 +49,9 @@ dependencies:
   axios:
     specifier: ^1.4.0
     version: 1.4.0
+  buefy:
+    specifier: ^0.9.23
+    version: registry.npmmirror.com/buefy@0.9.23(vue@3.3.4)
   china-area-data:
     specifier: ^5.0.1
     version: registry.npmmirror.com/china-area-data@5.0.1
@@ -82,6 +85,9 @@ dependencies:
   lute:
     specifier: ^0.0.4
     version: registry.npmmirror.com/lute@0.0.4
+  md-editor-v3:
+    specifier: 2.7.2
+    version: registry.npmmirror.com/md-editor-v3@2.7.2
   mitt:
     specifier: ^3.0.0
     version: 3.0.0
@@ -6802,10 +6808,29 @@ packages:
       node-int64: registry.npmmirror.com/node-int64@0.4.0
     dev: false
 
+  registry.npmmirror.com/buefy@0.9.23(vue@3.3.4):
+    resolution: {integrity: sha512-zkmTOUDlh7xx0ID8cSw3Wtm97nkTGU992TcIBBTC41rjKHjJTyQn9fYr8oqvVaCTLNVJmdPnnjDCuYZtHoDEog==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/buefy/-/buefy-0.9.23.tgz}
+    id: registry.npmmirror.com/buefy/0.9.23
+    name: buefy
+    version: 0.9.23
+    engines: {node: '>= 4.0.0', npm: '>= 3.0.0'}
+    peerDependencies:
+      vue: ^2.6.11
+    dependencies:
+      bulma: registry.npmmirror.com/bulma@0.9.4
+      vue: registry.npmmirror.com/vue@3.3.4
+    dev: false
+
   registry.npmmirror.com/buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/buffer-from/-/buffer-from-1.1.2.tgz}
     name: buffer-from
     version: 1.1.2
+
+  registry.npmmirror.com/bulma@0.9.4:
+    resolution: {integrity: sha512-86FlT5+1GrsgKbPLRRY7cGDg8fsJiP/jzTqXXVqiUZZ2aZT8uemEOHlU1CDU+TxklPEZ11HZNNWclRBBecP4CQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/bulma/-/bulma-0.9.4.tgz}
+    name: bulma
+    version: 0.9.4
+    dev: false
 
   registry.npmmirror.com/bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/bytes/-/bytes-3.1.2.tgz}
@@ -11973,6 +11998,13 @@ packages:
     name: mathml-tag-names
     version: 2.1.3
     dev: true
+
+  registry.npmmirror.com/md-editor-v3@2.7.2:
+    resolution: {integrity: sha512-CyLG7yZhMyKplXO/MYIccpL0AOcnys74cMpbBG77rmXWlANAmzLrznUU++g6MohTv3DCRNTz+5Uh/w9h9P2sSA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/md-editor-v3/-/md-editor-v3-2.7.2.tgz}
+    name: md-editor-v3
+    version: 2.7.2
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   registry.npmmirror.com/mdn-data@2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mdn-data/-/mdn-data-2.0.14.tgz}

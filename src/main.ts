@@ -3,7 +3,7 @@ import router from "./router";
 import { setupStore } from "@/store";
 import ElementPlus from "element-plus";
 import { getServerConfig } from "./config";
-import { createApp, Directive } from "vue";
+import Vue, { createApp, Directive } from "vue";
 import { MotionPlugin } from "@vueuse/motion";
 import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
@@ -55,12 +55,12 @@ import hljs from 'highlight.js';
 VMdPreview.use(githubTheme, {
   Hljs: hljs,
 });
-
 getServerConfig(app).then(async config => {
   app.use(router);
   await router.isReady();
   injectResponsiveStorage(app, config);
   setupStore(app);
+  // @ts-ignore
   app
     .use(MotionPlugin)
     .use(ElementPlus)

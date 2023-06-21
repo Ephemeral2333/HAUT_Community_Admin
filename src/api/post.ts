@@ -38,3 +38,11 @@ export const getAllPost = (data?: object) => {
 export const getPostById = (id?: string | RouteParamValue[]) => {
   return http.request<PostResult>("get", baseUrlApi(`front/post/${id}`));
 }
+
+export const getRandomFavorPost = () => {
+  return http.request<PostResult>("get", baseUrlApi(`post/like/random`));
+}
+
+export const getMyRandomPost = () => {
+  return http.request<PostResult>("get", baseUrlApi(`post/my/random`));
+}
