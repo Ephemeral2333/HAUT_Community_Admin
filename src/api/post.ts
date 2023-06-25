@@ -46,3 +46,17 @@ export const getRandomFavorPost = () => {
 export const getMyRandomPost = () => {
   return http.request<PostResult>("get", baseUrlApi(`post/my/random`));
 }
+
+export const getRandomCollectPost = () => {
+    return http.request<PostResult>("get", baseUrlApi(`post/collect/random`));
+}
+
+// 置顶帖子
+export const topPost = (id?: number) => {
+    return http.request<Result>("post", baseUrlApi(`admin/post/top/${id}`));
+}
+
+// 加精帖子
+export const essencePost = (id?: number) => {
+    return http.request<Result>("post", baseUrlApi(`admin/post/essence/${id}`));
+}

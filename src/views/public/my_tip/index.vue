@@ -1,30 +1,32 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useMyPost } from "@/views/post/view/utils/hook";
+import { MyTip } from "./utils/hook";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import Search from "@iconify-icons/ep/search";
 import Refresh from "@iconify-icons/ep/refresh";
+import { ref } from "vue";
 import PureTableBar from "@/components/RePureTableBar/src/bar";
+import AddFill from "@iconify-icons/ri/add-circle-line";
+import EditPen from "@iconify-icons/ep/edit-pen";
 import Delete from "@iconify-icons/ep/delete";
-import Document from "@iconify-icons/ep/document";
 
 defineOptions({
-  name: "ViewPost"
+  name: "MyTip"
 });
-
 const formRef = ref();
 
 const {
   form,
   loading,
-  dataList,
-  tagStyle,
-  pagination,
-  columns,
   onSearch,
   resetForm,
-  handleDelete
-} = useMyPost();
+  columns,
+  dataList,
+  pagination,
+  handleChange,
+  handleDelete,
+  openDialog
+} = MyTip();
+
 </script>
 
 <template>
@@ -35,10 +37,26 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="帖子标题：" prop="content">
+      <el-form-item label="句子内容：" prop="content">
         <el-input
-          v-model="form.title"
-          placeholder="请输入帖子内容"
+          v-model="form.content"
+          placeholder="请输入句子内容"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="句子作者：" prop="author">
+        <el-input
+          v-model="form.author"
+          placeholder="请输入句子作者"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="投稿人：" prop="user">
+        <el-input
+          v-model="form.user"
+          placeholder="请输入投稿人"
           clearable
           class="!w-[200px]"
         />
@@ -59,9 +77,9 @@ const {
     </el-form>
 
     <PureTableBar
-      title="我的帖子"
-      :columns="columns"
-      @refresh="onSearch">
+        title="我的每日一句投稿"
+        :columns="columns"
+        @refresh="onSearch">
 
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
@@ -79,31 +97,23 @@ const {
             background: 'var(--el-table-row-hover-bg-color)',
             color: 'var(--el-text-color-primary)'
           }"
-          @page-size-change="onSearch"
-          @page-current-change="onSearch"
+          @page-size-change="handleChange"
+          @page-current-change="handleChange"
         >
           <template #operation="{ row }">
-            <el-button
+            <el-button v-if="row.isAccepted === 0"
               class="reset-margin"
               link
               type="primary"
               :size="size"
-              :icon="useRenderIcon(Document)"
+              :icon="useRenderIcon(EditPen)"
+              @click="openDialog('编辑', row, row.id)"
             >
-              <router-link
-                :to="{
-                  name: 'PostDetail',
-                  params: {
-                    id: row.id
-                  }
-                }"
-              >
-                查看
-              </router-link>
+              修改
             </el-button>
             <el-popconfirm
-              :title="`是否确认删除帖子标题为${row.title}的这条数据`"
-              @confirm="handleDelete(row.id)"
+              :title="`是否确认删除投稿人为${row.user}的这条数据`"
+              @confirm="handleDelete(row)"
             >
               <template #reference>
                 <el-button

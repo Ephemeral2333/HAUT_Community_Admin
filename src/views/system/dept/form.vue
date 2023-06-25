@@ -89,19 +89,19 @@ defineExpose({ getRef });
           />
         </el-form-item>
       </re-col>
-      <re-col :value="12" :xs="24" :sm="24">
-        <el-form-item label="部门状态">
-          <el-switch
-            v-model="newFormInline.status"
-            inline-prompt
-            :active-value="1"
-            :inactive-value="0"
-            active-text="启用"
-            inactive-text="停用"
-            :style="switchStyle"
-          />
-        </el-form-item>
-      </re-col>
+<!--      <re-col :value="12" :xs="24" :sm="24">-->
+<!--        <el-form-item label="部门状态">-->
+<!--          <el-switch-->
+<!--            v-model="newFormInline.status"-->
+<!--            inline-prompt-->
+<!--            :active-value="1"-->
+<!--            :inactive-value="0"-->
+<!--            active-text="启用"-->
+<!--            inactive-text="停用"-->
+<!--            :style="switchStyle"-->
+<!--          />-->
+<!--        </el-form-item>-->
+<!--      </re-col>-->
     </el-row>
   </el-form>
 </template>

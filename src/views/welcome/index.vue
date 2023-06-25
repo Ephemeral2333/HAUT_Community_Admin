@@ -69,6 +69,14 @@ async function openDialog() {
             formInline: formInline.value
         }),
         beforeSure: async () => {
+            if(!formInline.value.nickname) {
+                message("昵称不能为空")
+                return false;
+            }
+            if(!formInline.value.email) {
+                message("邮箱不能为空")
+                return false;
+            }
             await updateProfile(formInline.value);
             message("更新成功")
             window.location.reload();

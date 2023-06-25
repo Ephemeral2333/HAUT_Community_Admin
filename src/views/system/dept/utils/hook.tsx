@@ -32,16 +32,16 @@ export function useDept() {
       prop: "sort",
       minWidth: 70
     },
-    {
-      label: "状态",
-      prop: "status",
-      minWidth: 100,
-      cellRenderer: ({ row, props }) => (
-        <el-tag size={props.size} style={tagStyle.value(row.status)}>
-          {row.status === 1 ? "启用" : "停用"}
-        </el-tag>
-      )
-    },
+    // {
+    //   label: "状态",
+    //   prop: "status",
+    //   minWidth: 100,
+    //   cellRenderer: ({ row, props }) => (
+    //     <el-tag size={props.size} style={tagStyle.value(row.status)}>
+    //       {row.status === 1 ? "启用" : "停用"}
+    //     </el-tag>
+    //   )
+    // },
     {
       label: "负责人",
       prop: "principal",

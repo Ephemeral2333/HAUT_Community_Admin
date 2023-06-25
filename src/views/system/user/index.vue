@@ -54,14 +54,14 @@ const {
             class="!w-[160px]"
           />
         </el-form-item>
-        <el-form-item label="邮箱：" prop="email">
-          <el-input
-            v-model="form.email"
-            placeholder="请输入邮箱"
-            clearable
-            class="!w-[160px]"
-          />
-        </el-form-item>
+<!--        <el-form-item label="邮箱：" prop="email">-->
+<!--          <el-input-->
+<!--            v-model="form.email"-->
+<!--            placeholder="请输入邮箱"-->
+<!--            clearable-->
+<!--            class="!w-[160px]"-->
+<!--          />-->
+<!--        </el-form-item>-->
         <el-form-item label="状态：" prop="status">
           <el-select
             v-model="form.status"
@@ -73,6 +73,14 @@ const {
             <el-option label="已关闭" value="0" />
           </el-select>
         </el-form-item>
+          <el-form-item label="用户昵称：" prop="nickname">
+              <el-input
+                  v-model="form.nickname"
+                  placeholder="请输入用户昵称"
+                  clearable
+                  class="!w-[160px]"
+              />
+          </el-form-item>
         <el-form-item>
           <el-button
             type="primary"
@@ -86,22 +94,14 @@ const {
             重置
           </el-button>
         </el-form-item>
-        <el-form-item label="用户昵称：" prop="nickname">
-          <el-input
-            v-model="form.nickname"
-            placeholder="请输入用户昵称"
-            clearable
-            class="!w-[160px]"
-          />
-        </el-form-item>
-        <el-form-item label="部门名称：" prop="dept">
-          <el-input
-            v-model="form.dept"
-            placeholder="请输入所属部门名称"
-            clearable
-            class="!w-[160px]"
-          />
-        </el-form-item>
+<!--        <el-form-item label="部门名称：" prop="dept">-->
+<!--          <el-input-->
+<!--            v-model="form.dept"-->
+<!--            placeholder="请输入所属部门名称"-->
+<!--            clearable-->
+<!--            class="!w-[160px]"-->
+<!--          />-->
+<!--        </el-form-item>-->
       </el-form>
 
       <PureTableBar title="用户管理" :columns="columns" @refresh="onSearch">
@@ -179,18 +179,6 @@ const {
                         @click="resetPassword(row)"
                       >
                         重置密码
-                      </el-button>
-                    </el-dropdown-item>
-                    <el-dropdown-item>
-                      <el-button
-                        :class="buttonClass"
-                        link
-                        type="primary"
-                        :size="size"
-                        :icon="useRenderIcon(Role)"
-                        @click="assignRole(row)"
-                      >
-                        分配角色
                       </el-button>
                     </el-dropdown-item>
                   </el-dropdown-menu>

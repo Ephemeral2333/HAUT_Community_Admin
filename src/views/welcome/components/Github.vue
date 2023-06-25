@@ -27,10 +27,13 @@ onMounted(async () => {
             {{ userInfo.sex == 1 ? "男" : "女" }}
         </el-descriptions-item>
         <el-descriptions-item label="个人简介">
-            {{ userInfo.description }}
+            {{ userInfo.description == null ? "暂无" : userInfo.description }}
         </el-descriptions-item>
         <el-descriptions-item label="邮箱">
             {{ userInfo.email }}
+        </el-descriptions-item>
+        <el-descriptions-item label="所属部门">
+            {{ userInfo.sysDept == null ? "暂无" : userInfo.sysDept.name }}
         </el-descriptions-item>
     </el-descriptions>
 </template>

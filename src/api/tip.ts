@@ -45,3 +45,12 @@ export const refuseTip = (id?: number) => {
 export const passTip = (id?: number) => {
   return http.request<Result>("get", baseUrlApi(`admin/tip/pass/${id}`));
 }
+
+export const myTipList = (data?: object) => {
+    return http.request<Result>("post", baseUrlApi("my/tip"), { data });
+}
+
+// @ts-ignore
+export const updateMyTip = (data?: object, id: number) => {
+    return http.request<Result>("put", baseUrlApi(`my/tip/update/${id}`), { data });
+}
