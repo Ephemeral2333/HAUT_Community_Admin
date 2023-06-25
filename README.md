@@ -1,67 +1,42 @@
-<h1>vue-pure-admin精简版（非国际化版本）</h1>
+# HAUT_Community_Admin
 
-[![license](https://img.shields.io/github/license/pure-admin/vue-pure-admin.svg)](LICENSE)
+# HAUT_Community
 
-**中文** | [English](./README.en-US.md)
+#### 介绍
 
-## 介绍
+软件工程项目实践 -- **Gathering Circle** 社交平台--前端后台代码
 
-精简版是基于 [vue-pure-admin](https://github.com/pure-admin/vue-pure-admin) 提炼出的架子，包含主体功能，更适合实际项目开发，打包后的大小在全局引入 [element-plus](https://element-plus.org) 的情况下仍然低于 `2.3MB`，并且会永久同步完整版的代码。开启 `brotli` 压缩和 `cdn` 替换本地库模式后，打包大小低于 `350kb`
+实现了一个校园社区交流平台，前端后台使用Vue 3.0 + TypeScript等开发，使用了Pure-Admin框架
 
-## 版本选择
+#### 技术栈
 
-当前是非国际化版本哦，如果您需要国际化版本 [请点击](https://github.com/pure-admin/pure-admin-thin/tree/i18n)
+使用到了Vue 3.0 + TypeScript + Element Plus + Vite 等
 
-## 配套视频
+#### 系统界面
 
-- [点我查看教程](https://www.bilibili.com/video/BV1kg411v7QT)
-- [点我查看 UI 设计](https://www.bilibili.com/video/BV17g411T7rq)
+##### 首页
+![image](https://github.com/Ephemeral2333/HAUT_Community_Admin/assets/88269111/c17f825d-9173-4b9f-9056-cee60707396f)
 
-## 配套文档
+##### 用户管理
+![image](https://github.com/Ephemeral2333/HAUT_Community_Admin/assets/88269111/a345cb77-fdb5-45b0-a185-4125610adb77)
 
-- [点我查看国内文档站](https://yiming_chang.gitee.io/pure-admin-doc)
-- [点我查看国外文档站](https://pure-admin.github.io/pure-admin-doc)
+##### 投稿审核
+![image](https://github.com/Ephemeral2333/HAUT_Community_Admin/assets/88269111/ae7925a0-977b-44c9-9641-a97d7f2aa2f7)
 
-## 预览
+##### 帖子管理
+![image](https://github.com/Ephemeral2333/HAUT_Community_Admin/assets/88269111/44f3087c-0c57-4d99-9f5f-a6eaf7e98391)
 
-- [点我查看预览站](https://pure-admin-thin.netlify.app/#/login)
 
-## 维护者
+#### 运行方法
 
-[xiaoxian521](https://github.com/xiaoxian521)
+##### 先安装依赖
 
-## 支持
-
-如果你觉得这个项目对您有帮助，可以帮作者买一杯果汁 🍹 表示支持
-
-<img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f69bf13c5b854ed5b699807cafa0e3ce~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp?" width="150px" height="150px" />
-
-## `QQ` 交流群
-
-[点击去加入](https://yiming_chang.gitee.io/pure-admin-doc/pages/support/#qq-%E4%BA%A4%E6%B5%81%E7%BE%A4)
-
-## 用法
-
-### 安装依赖
-
+```
 pnpm install
+```
 
-### 安装一个包
+##### 再运行代码
 
-pnpm add 包名
-
-### 卸载一个包
-
-pnpm remove 包名
-
-我认为你应该先 `fork` 项目去开发，以便我更新时您可以同步拉取更新！！！
-
-## ⚠️ 注意
-
-- 精简版不接受任何 `issues` 和 `pr`，如果有问题请到完整版 [issues](https://github.com/pure-admin/vue-pure-admin/issues/new/choose) 去提，谢谢！！！
-
-## 许可证
-
-原则上不收取任何费用及版权，可以放心使用，不过如需二次开源（比如用此平台二次开发并开源）请联系作者获取许可！
-
-[MIT © 2020-present, pure-admin](./LICENSE)
+```
+pnpm dev
+```
